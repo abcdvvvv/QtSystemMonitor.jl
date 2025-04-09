@@ -1,5 +1,5 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
 import org.julialang
 
 ApplicationWindow {
@@ -11,8 +11,8 @@ ApplicationWindow {
     palette.window: "#f0f0f0"
     color: "#f0f0f0" // bgcolor
 
-    property real cpuPercent: 0
-    property real memoryUsed: 0
+    // property real cpuPercent: 0
+    // property real memoryUsed: 0
 
     Timer {
         id: updateTimer
@@ -20,8 +20,8 @@ ApplicationWindow {
         repeat: true
         running: true
         onTriggered: {
-            cpuPercent = Julia.get_mean_cpu_percent()
-            memoryUsed = Julia.get_memory_used()
+            Julia.get_mean_cpu_percent()
+            Julia.get_memory_used()
         }
     }
 
@@ -131,13 +131,13 @@ ApplicationWindow {
                         ProgressBar {
                             from: 0
                             to: 100
-                            value: cpuPercent
+                            value: system_data.cpuUtilization
                             // Give an approximate width, leaving room for Label on the right.
                             width: parent.width - 100
                         }
 
                         Label {
-                            text: (cpuPercent/100).toFixed(2) + "%"
+                            text: (system_data.cpuUtilization/100).toFixed(2) + "%"
                             horizontalAlignment: Text.AlignRight
                         }
                     }
@@ -154,12 +154,12 @@ ApplicationWindow {
                         ProgressBar {
                             from: 0
                             to: system_data.memoryTotal
-                            value: memoryUsed
+                            value: system_data.memoryUsed
                             width: parent.width - 100
                         }
 
                         Label {
-                            text: memoryUsed.toFixed(1) + " / " +
+                            text: system_data.memoryUsed.toFixed(1) + " / " +
                                   system_data.memoryTotal.toFixed(1) + " " +
                                   system_data.memoryUnit
                         }

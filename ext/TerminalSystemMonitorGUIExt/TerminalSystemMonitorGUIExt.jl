@@ -9,15 +9,24 @@ using Observables
 using TerminalSystemMonitor
 using Dates: Dates, DateTime, Second
 
-function monitorGUI()
-    cpu_data = Observable(Float64[])
-    cpu_count = Observable(0)
-    memory_total = Observable(0.0)
-    memory_used = Observable(0.0)
-    memory_unit = Observable("GiB")
-    load_average = Observable([0.0, 0.0, 0.0])
-    uptime_str = Observable("")
+cpu_data = Observable(0.0)
+cpu_count = Observable(0)
+memory_total = Observable(0.0)
+memory_used = Observable(0.0)
+memory_unit = Observable("GiB")
+load_average = Observable([0.0, 0.0, 0.0])
+uptime_str = Observable("")
 
+function get_memory_used()
+    memoryfree, _ =
+        Sys.free_memory() |> Base.format_bytes |> TerminalSystemMonitor.extract_number_and_unit
+    @show memory_used[] = Float64(memory_total[] - memoryfree)
+    return memory_used[]
+end
+
+get_mean_cpu_percent() = cpu_data[] = sum(TerminalSystemMonitor.get_cpu_percent(0.5)) / Sys.CPU_THREADS
+
+function monitorGUI()
     memory_total[], memory_unit[] =
         Sys.total_memory() |> Base.format_bytes |> TerminalSystemMonitor.extract_number_and_unit
 
@@ -28,18 +37,10 @@ function monitorGUI()
     sec = seconds % 60
     uptime_str[] = string(days, " days, ", lpad(hours, 2, '0'), ":", lpad(minutes, 2, '0'), ":", lpad(sec, 2, '0'))
 
-    get_mean_cpu_percent() = sum(TerminalSystemMonitor.get_cpu_percent(0.5)) / Sys.CPU_THREADS
-
-    function get_memory_used()
-        memoryfree, _ =
-            Sys.free_memory() |> Base.format_bytes |> TerminalSystemMonitor.extract_number_and_unit
-        return Float64(memory_total[] - memoryfree)
-    end
-
-    @qmlfunction get_memory_used get_mean_cpu_percent
+    @qmlfunction get_memory_used get_mean_cpu_percent isinteractive
 
     loadqml(joinpath(@__DIR__, "qml", "main.qml"),
-        system_data=JuliaPropertyMap(
+        system_data = JuliaPropertyMap(
             # CPU
             "cpuUtilization" => cpu_data,
             "cpuCount" => cpu_count,
@@ -49,8 +50,8 @@ function monitorGUI()
             "memoryUnit" => memory_unit,
             # sysinfo
             "loadAverage" => load_average,
-            "uptime" => uptime_str
-        )
+            "uptime" => uptime_str,
+        ),
     )
 
     exec()
