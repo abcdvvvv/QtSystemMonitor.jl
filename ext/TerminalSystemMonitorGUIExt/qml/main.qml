@@ -4,7 +4,7 @@ import org.julialang
 
 ApplicationWindow {
     id: mainWindow
-    title: "Terminal System Monitor"
+    title: "Qt System Monitor"
     visible: true
     width: 600
     height: 260
@@ -45,7 +45,7 @@ ApplicationWindow {
                 spacing: 20
 
                 Label {
-                    text: "Terminal System Monitor"
+                    text: "Qt System Monitor"
                     font.pixelSize: 18
                     font.bold: true
                     color: "white"
