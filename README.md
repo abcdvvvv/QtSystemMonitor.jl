@@ -1,12 +1,12 @@
-# [TerminalSystemMonitor.jl](https://github.com/AtelierArith/TerminalSystemMonitor.jl)
+# QtSystemMonitor.jl
 
 [![Build Status](https://github.com/AtelierArith/TerminalSystemMonitor.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/AtelierArith/TerminalSystemMonitor.jl/actions/workflows/CI.yml?query=branch%3Amain) [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://AtelierArith.github.io/TerminalSystemMonitor.jl/stable/) [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://AtelierArith.github.io/TerminalSystemMonitor.jl/dev/)
 
 ## Description
 
-This Julia package displays CPU and RAM usage information on your computer. If necessary, one can show GPU usage.
+This is a graphical user interface designed with Qt6 QML for the TerminalSystemMonitor.jl.
 
-<img width="2592" alt="image" src="https://github.com/user-attachments/assets/695d64ab-62ba-417e-ac04-e168237b4957">
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/56ae72cf-b5ed-458b-809b-02b2cf7e8250">
 
 ## Installation
 
@@ -38,8 +38,8 @@ $ julia --version
 Clone the repository and navigate to the directory:
 
 ```sh
-$ git clone https://github.com/AtelierArith/TerminalSystemMonitor.jl.git
-$ cd TerminalSystemMonitor.jl
+$ git clone https://github.com/abcdvvvv/QtSystemMonitor.jl.git
+$ cd QtSystemMonitor.jl
 ```
 
 ### Step 3. Resolve dependencies
@@ -47,7 +47,7 @@ To resolve dependencies, ensure you are in the correct directory, then activate 
 
 ```sh
 $ pwd
-path/to/TerminalSystemMonitor.jl
+path/to/QtSystemMonitor.jl
 $ ls
 Project.toml  README.md     main.jl       src
 $ julia -q
@@ -64,39 +64,11 @@ Project.toml  README.md     main.jl       src
 $ julia --project main.jl
 ```
 
-You will see an output similar to this:
-
-```bash
-╭───────────────────────╮╭───────────────────────╮
-│      ┌               ┐││      ┌               ┐│
-│id:  0┤■■■ 24          ││id:  4┤■ 10.1          │
-│id:  1┤ 0              ││id:  5┤ 0              │
-│id:  2┤■■ 13.9         ││id:  6┤■ 6             │
-│id:  3┤ 0              ││id:  7┤ 0              │
-│      └               ┘││      └               ┘│
-╰───────────────────────╯╰───────────────────────╯
-╭───────────────────────╮╭───────────────────────╮
-│      ┌               ┐││      ┌               ┐│
-│id:  8┤■ 6             ││id: 12┤ 3              │
-│id:  9┤ 0              ││id: 13┤ 0              │
-│id: 10┤■ 5             ││id: 14┤ 2              │
-│id: 11┤ 0              ││id: 15┤ 0              │
-│      └               ┘││      └               ┘│
-╰───────────────────────╯╰───────────────────────╯
-╭────────────────────────────────────────╮
-│     ┌               ┐                  │
-│Mem: ┤■■■■■■ 58.859    64.0 GiB         │
-│     └               ┘                  │
-│      Load average: 1.81 2.4 2.73       │
-│      Uptime: 0 days, 10:35:59          │
-╰────────────────────────────────────────╯
-```
-
 Alternatively, you can launch the functionality directly from Julia:
 
 ```julia
 $ julia --project
-julia> using TerminalSystemMonitor; monitor()
+julia> using TerminalSystemMonitor; monitorGUI()
 ```
 
 ### Monitoring GPU Usage
