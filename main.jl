@@ -1,11 +1,6 @@
-using TerminalSystemMonitor: main
+using TerminalSystemMonitor
 
 if abspath(PROGRAM_FILE) == @__FILE__
     Base.exit_on_sigint(false)
-    main()
+    monitorGUI()
 end
-
-import Pkg
-Pkg.activate(".")
-using TerminalSystemMonitor
-monitorGUI()

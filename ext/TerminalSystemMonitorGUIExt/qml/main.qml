@@ -132,12 +132,11 @@ ApplicationWindow {
                             from: 0
                             to: 100
                             value: system_data.cpuUtilization
-                            // Give an approximate width, leaving room for Label on the right.
                             width: parent.width - 100
                         }
 
                         Label {
-                            text: (system_data.cpuUtilization/100).toFixed(2) + "%"
+                            text: (system_data.cpuUtilization).toFixed(2) + "%"
                             horizontalAlignment: Text.AlignRight
                         }
                     }

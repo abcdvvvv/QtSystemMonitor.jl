@@ -20,7 +20,7 @@ uptime_str = Observable("")
 function get_memory_used()
     memoryfree, _ =
         Sys.free_memory() |> Base.format_bytes |> TerminalSystemMonitor.extract_number_and_unit
-    @show memory_used[] = Float64(memory_total[] - memoryfree)
+    memory_used[] = Float64(memory_total[] - memoryfree)
     return memory_used[]
 end
 
